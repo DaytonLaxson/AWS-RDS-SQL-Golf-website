@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="myStyles.css" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="favicon.ico">
+        <title>Swang Out Confirmation</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body style="background-image: url('golf_background.jpg'); background-size:100%; background-repeat:no-repeat;">
+        <nav>
+            <div>
+                    <h1 class = "titleName"> <a style = "color:green;" href="Main.html"> Swang Out </a> </h1>
+            </div>
+        </nav>
+        <div style="margin:10%; margin-left: 30%;">
+            <label for="customerName">Name:</label>
+            <input type="text" id="customerName" disabled>
+            <label for="customerNumber">Phone #:</label>
+            <input type="text" id="customerNumber" disabled>
+            <div style="margin-top:10%; margin-bottom: 10%;">
+                <table class="greentable">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersData">
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <label for="totalprice">Total price</label>
+                <input type="text" id="totalprice" value="$0.00" disabled>
+                <button id="payButton"> Pay </button>
+            </div>
+        </div>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+            "use strict";
+            $('#payButton').click(function () {
+                alert("Thanks for the order");
+                setTimeout(function () {
+                    window.location.href = 'Main.html';
+                }, 500);
+            });
+             $(document).ready(function () {
+                $.ajax({
+                    type: 'get',
+                    url: 'api/customer',
+                    dataType: 'json',
+                    success: function (data) {
+                        var customers = [];
+                        var total = 0;
+                        $.each(data, function (i, customer) {
+                            customers.push(customer);
+                        });
+                        $('#ordersData').empty();
+                        for (var i = 0; i < customers.length; i++) {
+                            var Cust = customers[i];
+                            total += Cust.itemQuantity * Cust.price;
+                            var row = '<tr>'
+                                    + '<td>' + Cust.itemName + '</td>'
+                                    + '<td>' + Cust.itemQuantity + '</td>'
+                                    + '<td>' + Cust.price + '</td>'
+                                    + '</tr>';
+                            $('#ordersData').append(row);
+                        }
+                        $('#totalprice').val('$' + total.toFixed(2));
+                        $('#customerName').val(Cust.customerName);
+                        $('#customerNumber').val(Cust.phoneNumber);
+                    },
+                    error: function (data) {
+                        alert("alert");
+                    }
+                });
+            });
+            </script>
+            <footer>
+				<div class="footerContainerTop">
+					<div>
+						<a style = "float:left;" href="https://www.facebook.com/Swang-Out-617325425350053/"><img src="facebook_logo.png" alt="Facebook Page";></a>
+					</div>
+					<div>
+						<a style = "float:right;" href="https://twitter.com/?lang=en"><img src="twitter_logo.png" alt="Twitter Page";></a>
+					</div>
+				</div>
+				<div class="footerContainerUnder">
+					<div>
+						<a style = "float:left; color:white;" href="contactpage.html"> Contact US</a>
+					</div>
+					<div>
+						<p style = "float:right; color:white;">
+						HOURS<br>
+						Weekdays:  10 a.m to midnight<br>
+						Weekends:  10 a.m to 2 a.m
+						</p>
+					</div>
+				</div>
+			</footer>
+    </body>
+</html>

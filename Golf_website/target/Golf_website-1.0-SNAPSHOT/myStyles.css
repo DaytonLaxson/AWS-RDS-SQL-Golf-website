@@ -1,0 +1,261 @@
+body {
+	margin:0px;
+}
+
+nav {
+	width:100%; 
+	height:80px;
+	background-color: #333;
+}
+
+nav div {
+	height:100%;
+}
+
+ul {
+	list-style-type:none;
+	background-color: #333;
+	margin: 0px;
+	padding: 40px 0px;
+}
+
+li {
+	float:left;
+}
+
+.navLinks {
+	display: block; 
+	color: white; 
+	text-align: center;
+	padding: 10px 15px;
+	text-decoration: none;
+}
+
+.greentable table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+.greentable th{
+        border: 2px solid #05330f;
+        text-align: center;
+        padding: 8px;
+        width:20%;
+}
+.greentable td{
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 2px;
+    }
+.greentable tr:nth-child(even) {
+        background-color: #d4f7dc;
+    }
+.greentable tr:nth-child(odd) {
+        background-color: #26b747;
+    }
+#quanityBox {
+    width:100%;
+}
+
+#totalprice {
+    text-align: right;
+}
+
+#commentbox {
+    width:40%;
+    height:30%;
+}
+
+.aboutUs{
+    margin: 20%;
+    background-color: white;
+    opacity:.6;
+}
+
+.aboutUs h1 {
+    text-align: center;
+    text-decoration: underline;
+    color:green;
+    font-family:serif;
+    font-size:40pt;
+    text-align:center;
+    
+}
+.aboutUs p {
+    color:green;
+    font-family:serif;
+    font-size:15pt;
+    text-align:center;
+    
+}
+.navLinks:hover {color:white;
+	text-decoration:none;
+	background-color:green; 
+	border-width:2px;
+	border-color:white;
+}
+
+a:active {
+	color:black;
+}
+
+a:visted{
+    color: inherit;
+}
+footer { 
+	bottom:0;
+	width:100%;
+	background-color: #333;
+}
+
+.topImage{ 
+	width:100%;
+	height:auto;
+}
+
+.titleName{
+	color:green;
+	font-family:serif;
+	font-size:40pt;
+	text-align:center;
+	text-shadow: 2px 2px #ffffff;
+}
+
+.footerContainerTop {
+        width:100%;
+	margin-left:10%;
+	text-align:center;
+}
+
+.footerContainerTop div {
+	width:80%;
+}
+
+.footerContainerTop img {
+	width:100px;
+	height:40px;
+}
+
+.footerContainerUnder {
+	width:100%;
+        padding:100px;
+	margin-left:2%;
+	text-align:center;
+	clear:both;
+}
+
+.footerContainerUnder div {
+	width:100%; 
+	margin:0 1%;
+}
+
+.footerContainerUnder a:hover {
+	text-decoration:underline;
+}
+
+.menuPage {
+	background-image: url("menu_image.jpg");
+	background-size:100%;
+	background-repeat:no-repeat;
+	padding-left:18%;
+	padding-top:50px;
+	padding-bottom:50px;
+	margin-top:6%;
+}
+.menuPageItem{
+	height:500px;
+	width:850px;
+	border-style: double;
+	border-width:8px;
+	border-color: green;
+}
+.menuItem{
+	color:green;
+	font-family:serif;
+	font-size:40pt;
+	text-align:center;
+	text-shadow: 2px 2px #ffffff;
+}
+* {
+  box-sizing: border-box;
+}
+
+/* Position the image container (needed to position the left and right arrows) */
+.container {
+  position: relative;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+  cursor: pointer;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 40%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* Container for image text */
+.caption-container {
+  text-align: center;
+  background-color: #222;
+  padding: 2px 16px;
+  color: white;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Six columns side by side */
+.column {
+  float: left;
+  width: 16.66%;
+}
+
+/* Add a transparency effect for thumnbail images */
+.demo {
+  opacity: 0.6;
+}
+
+.active, .demo:hover {
+  opacity: 1;
+}

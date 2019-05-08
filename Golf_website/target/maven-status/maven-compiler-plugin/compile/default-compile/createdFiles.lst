@@ -1,0 +1,12 @@
+com\mycompany\golf_website\CustomerOrderService.class
+com\mycompany\golf_website\MenuItem_.class
+com\mycompany\golf_website\MenuItemService.class
+com\mycompany\golf_website\CustomerOrder_.class
+com\mycompany\golf_website\MenuItemWS.class
+com\mycompany\golf_website\CustomerOrderWS.class
+com\mycompany\golf_website\InitService.class
+com\mycompany\golf_website\MenuItemDTO.class
+com\mycompany\golf_website\MenuItem.class
+com\mycompany\golf_website\ApplicationConfig.class
+com\mycompany\golf_website\CustomerOrder.class
+com\mycompany\golf_website\CustomerOrderDTO.class

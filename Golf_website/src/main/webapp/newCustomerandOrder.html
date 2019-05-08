@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="myStyles.css" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="favicon.ico">
+        <title>Swang Out New Order</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body style="background-image: url('golf_background.jpg'); background-size:100%; background-repeat:no-repeat;">
+        <nav>
+            <div>
+                <h1 class = "titleName"> <a style = "color:green;" href="Main.html"> Swang Out </a> </h1>
+            </div>
+            <ul>
+                <li><a class = "navLinks" href="OurPlace.html">Our Place</a></li>
+                <li><a class = "navLinks" href="Menupage.html">Menu</a></li>
+                <li style="float:right"><a class = "navLinks" href="newCustomerandOrder.html">New Order</a></li>
+            </ul>
+        </nav>
+        <div style="margin:10%; margin-left: 10%;">
+            <table class="greentable">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody id="orderdata">
+                </tbody>
+            </table>
+            <div style="padding: 10px; text-align: right; margin-right: 16%;">
+                <label for="totalprice">Total price</label>
+                <input type="text" id="totalprice" value="$0.00" disabled><br>
+            </div>
+        </div>
+        <div style="margin:10%; margin-left: 20%;">
+            <input id ="name" type="text" placeholder="First name" required maxlength="25" size="25">
+            <input id ="phone" type="text" placeholder="Phone number (only numbers)" required maxlength="11" size="25">
+            <input id ="credit" type="text" placeholder="Credit Card number (only numbers)" required maxlength="16" size="27">
+            <button id="addCustomer" disabled> Continue to Confirmation </button>
+        </div>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+            "use strict";
+
+            $('#addCustomer').click(function () {
+                var name = $('#name').val();
+                if (notvalidname(name)) {
+                    alert("Please enter a valid name");
+                    return;
+                }
+                var phone = $('#phone').val();
+                if (notvalidnumber(phone)) {
+                    alert("Please enter a valid phone number");
+                    return;
+                }
+                var credit = $('#credit').val();
+                if (notvalidcredit(credit)) {
+                    alert("Please enter a valid credit card number");
+                    return;
+                }
+                var trs = $('#orderdata').children('tr');
+                for (var i = 0; i < trs.length; i++) {
+                    var tr = trs[i];
+                    var tds = $(tr).children('td');
+                    var itemname = tds.eq(0).text();
+                    var price = tds.eq(1).text();
+                    var count = tds.eq(2).children('input').val();
+                    var OrderData = JSON.stringify({
+                        CustomerName: name,
+                        ItemName: itemname,
+                        Price: price,
+                        ItemQuantity: count,
+                        phoneNumber: phone,
+                        creditNumber: credit
+                    });
+                    window.console.log(i + " " + OrderData + typeof (phone));
+                    var zero = "0";
+                    if (count !== zero) {
+                        $.ajax({
+                            url: 'api/customer',
+                            type: 'post',
+                            data: OrderData,
+                            contentType: 'application/json',
+                            dataType: 'text',
+                            success: function (resp) {
+                                setTimeout(function () {
+                                    window.location.href = 'confirmOrder.html';
+                                }, 500);
+                            },
+                            error: function () {
+                                window.console.log("err " + i + OrderData);
+                            }
+                        });
+                    }
+                }
+            });
+            $('#orderdata').change(function () {
+                var trs = $('#orderdata').children('tr');
+                var total = 0;
+                for (var i = 0; i < trs.length; i++) {
+                    var tr = trs[i];
+                    var tds = $(tr).children('td');
+                    var price = tds.eq(1).text();
+                    var count = tds.eq(2).children('input').val();
+                    total += price * count;
+                }
+                $('#totalprice').val('$' + total.toFixed(2));
+                if (total === 0) {
+                    $('#addCustomer').prop('disabled', true);
+                } else {
+                    $('#addCustomer').prop('disabled', false);
+                }
+            });
+            $(document).ready(function () {
+                $.ajax({
+                    type: 'get',
+                    url: 'api/menu',
+                    dataType: 'json',
+                    success: function (data) {
+                        var menuItems = [];
+                        $.each(data, function (i, item) {
+                            menuItems.push(item);
+                        });
+                        $('#orderdata').empty();
+                        for (var i = 0; i < menuItems.length; i++) {
+                            var MI = menuItems[i];
+                            var row = '<tr>'
+                                    + '<td>' + MI.name + '</td>'
+                                    + '<td>' + MI.price + '</td>'
+                                    + '<td><input id="quanityBox" type="number" value="0" min="0"></td>'
+                                    + '</tr>';
+                            $('#orderdata').append(row);
+                        }
+                    },
+                    error: function () {
+                        alert('Network communication error');
+                    }
+                });
+            });
+            function notvalidnumber(phone) {
+                if (phone > 999999999) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            function notvalidcredit(credit) {
+                if (credit > 999999999999999) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            function notvalidname(name) {
+                if (name.length > 1 && name.length < 26) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        </script>
+        <footer>
+            <div class="footerContainerTop">
+                <div>
+                    <a style = "float:left;" href="https://www.facebook.com/Swang-Out-617325425350053/"><img src="facebook_logo.png" alt="Facebook Page";></a>
+                </div>
+                <div>
+                    <a style = "float:right;" href="https://twitter.com/?lang=en"><img src="twitter_logo.png" alt="Twitter Page";></a>
+                </div>
+            </div>
+            <div class="footerContainerUnder">
+                <div>
+                    <a style = "float:left; color:white;" href="contactpage.html"> Contact US</a>
+                </div>
+                <div>
+                    <p style = "float:right; color:white;">
+                        HOURS<br>
+                        Weekdays:  10 a.m to midnight<br>
+                        Weekends:  10 a.m to 2 a.m
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
